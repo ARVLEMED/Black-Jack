@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+#game-introduction,
+#game-rules,
+#game-strategy,
+#game-tips {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#game-introduction {
+    text-align: center;
+}
+
+#game-introduction h2 {
+    margin: 0;
+}
+
+h2 {
+    margin: 20px 0;
+    font-size: 24px;
+}
+
+h3 {
+    margin: 15px 0;
+    color: #333;
+    font-weight: bold;
+    text-align: left;
+}
+
+p {
+    margin: 10px 0;
+    max-width: 600px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+ul {
+    margin: 10px 0; /* Adjust margin for unordered list */
+    padding-left: 20px; /* Indent bullet points */
+}
+
+li {
+    margin-bottom: 5px; /* Add space between list items */
+    line-height: 1.5; /* Improve line height for readability */
+}
+
+h2, h3 {
+    border-bottom: 2px solid #ccc; /* Add a bottom border to headings */
+    padding-bottom: 5px; /* Add some space below the heading */
+}
