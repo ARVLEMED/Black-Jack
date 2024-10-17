@@ -12,7 +12,7 @@ const resultDiv = document.getElementById('result');
 
 document.getElementById('start').addEventListener('click', startGame);
 document.getElementById('hit').addEventListener('click', playerHit);
-document.getElementById('stand').addEventListener('click', dealerTurn);
+document.getElementById('stand').addEventListener('click', stand);
 
 function startGame() {
     deck = createDeck();
@@ -113,6 +113,11 @@ function calculateScore(hand) {
 }
 
 // function stand
+function stand () {
+    if (gameActive) {
+        dealerTurn ();
+    }
+}
 // // fucntion split 
 const dropdownButton = document.querySelector('.split-dropdown-button');
 const splitOptions = document.createElement('div');
