@@ -80,7 +80,8 @@ h2, h3 {
     margin: auto; 
     width: 80%;
     max-width: 600px; 
-    text-align: center; 
+    text-align: center;
+
 }
 
 #game-board {
