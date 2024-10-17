@@ -121,3 +121,38 @@ h2, h3 {
     border-bottom: 2px solid #ccc; /* Add a bottom border to headings */
     padding-bottom: 5px; /* Add some space below the heading */
 }
+.game-container {
+    margin: auto;
+    width: 80%;
+    max-width: 600px;
+}
+
+#game-board {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+}
+
+.cards {
+    border: 1px solid white;
+    padding: 10px;
+    margin: 10px;
+    min-height: 100px;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 24px;
+    color: yellow;
+}
