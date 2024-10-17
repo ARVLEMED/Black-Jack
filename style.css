@@ -177,3 +177,8 @@ button {
         padding: 15px; 
     }
 }
+#game-board {
+    background-color: #2e8b57; 
+    padding: 20px; 
+    border-radius: 10px; 
+}

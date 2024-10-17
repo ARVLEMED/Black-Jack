@@ -27,6 +27,91 @@ function startGame() {
     resultDiv.textContent = '';
 }
 // function Hit
+function playerHit(){
+    if(gameActive) {
+        const newCard = drawCard();
+        playerHand.push(newCard);
+        playerScore = calculateScore(playerHand);
+
+        updateUI();
+        
+        if (playerScore > 21) {
+            resultDiv.textContent = "You bust!! Dealer wins";
+            gameActive = false;
+        }
+    }
+
+}
+
+function dealerTurn() {
+    if (gameActive) {
+        while (dealerScore < 17) {
+            dealerHand.push(drawCard()); 
+            dealerScore = calculateScore(dealerHand); 
+        }
+        updateUI(); 
+        
+        if (dealerScore > 21) {
+            resultDiv.textContent = 'Dealer busted! You win!';
+        } else if (dealerScore > playerScore) {
+            resultDiv.textContent = 'Dealer wins!';
+        } else if (dealerScore < playerScore) {
+            resultDiv.textContent = 'You win!';
+        } else {
+            resultDiv.textContent = 'It\'s a tie!';
+        }
+        
+        gameActive = false; 
+    }
+}
+
+
+function createDeck() {
+    const deck = [];
+    for (const suit of suits) {
+        for (const value of values) {
+            deck.push({ rank: value, suit: suit });
+        }
+    }
+    return deck;
+}
+
+
+function shuffleDeck(deck) {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]]; 
+    }
+}
+
+function drawCard() {
+    return deck.pop(); 
+}
+
+function calculateScore(hand) {
+    let score = 0;
+    let acesCount = 0;
+
+    for (const card of hand) {
+        if (values.indexOf(card.rank) >= 9) { 
+            score += 10;
+        } else if (card.rank === 'Ace') {
+            score += 11; // ace treated as 11
+            acesCount++;
+        } else {
+            score += parseInt(card.rank);
+        }
+    }
+
+   
+    while (score > 21 && acesCount > 0) {
+        score -= 10; // Ace as 1 instead of 11
+        acesCount--;
+    }
+
+    return score;
+}
+
 // function stand
 // // fucntion split 
 const dropdownButton = document.querySelector('.split-dropdown-button');
@@ -73,6 +158,10 @@ document.querySelector('.split-main-button').addEventListener('click', () => {
 function updateUI() {
 
     console.log('Update UI with hands:', playerHands);
+    playerCardsDiv.innerHTML = playerHand.map(card => `<div>${card.rank} of ${card.suit}</div>`).join('');
+    dealerCardsDiv.innerHTML = dealerHand.map(card => `<div>${card.rank} of ${card.suit}</div>`).join('');
+    playerScoreDiv.textContent = `Score: ${playerScore}`;
+    dealerScoreDiv.textContent = `Score: ${dealerScore}`;
 }
 
 
