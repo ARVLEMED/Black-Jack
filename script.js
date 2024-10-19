@@ -1,6 +1,4 @@
-// //function startGame
-// const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-// const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
+//function startGame
 
 const suits = ["C", "D", "H", "S"];
 const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -108,7 +106,7 @@ function calculateScore(hand) {
         if (['J', 'Q', 'K'].includes(card.rank)) { 
             score += 10;
         } else if (card.rank === 'A') {
-            score += 11; // ace treated as 11
+            score += 11; 
             acesCount++;
         } else {
             score += parseInt(card.rank);
@@ -117,7 +115,7 @@ function calculateScore(hand) {
 
    
     while (score > 21 && acesCount > 0) {
-        score -= 10; // Ace as 1 instead of 11
+        score -= 10; 
         acesCount--;
     }
 
