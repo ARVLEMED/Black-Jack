@@ -1,8 +1,10 @@
-// //function startGame
-const suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
-const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', 'King', 'Ace'];
+//function startGame
+
+const suits = ["C", "D", "H", "S"];
+const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 
 let deck, playerHand, dealerHand, playerScore, dealerScore, gameActive;
+let dealerHiddenCard, dealerRevealed;
 
 const playerCardsDiv = document.getElementById('player-cards');
 const dealerCardsDiv = document.getElementById('dealer-cards');
@@ -19,8 +21,11 @@ function startGame() {
     shuffleDeck(deck);
     playerHand = [drawCard(), drawCard()];
     dealerHand = [drawCard(), drawCard()];
+    dealerHiddenCard = drawCard();
+    dealerRevealed = false;
     playerScore = calculateScore(playerHand);
-    dealerScore = calculateScore(dealerHand);
+    dealerScore = calculateScore(dealerHand.concat([dealerHiddenCard]));
+    // dealerScore = calculateScore(dealerHand);
     gameActive = true;
 
     updateUI();
@@ -45,6 +50,11 @@ function playerHit(){
 
 function dealerTurn() {
     if (gameActive) {
+
+        dealerHand.push(dealerHiddenCard); 
+        dealerRevealed = true;
+        updateUI();
+
         while (dealerScore < 17) {
             dealerHand.push(drawCard()); 
             dealerScore = calculateScore(dealerHand); 
@@ -93,10 +103,10 @@ function calculateScore(hand) {
     let acesCount = 0;
 
     for (const card of hand) {
-        if (values.indexOf(card.rank) >= 9) { 
+        if (['J', 'Q', 'K'].includes(card.rank)) { 
             score += 10;
-        } else if (card.rank === 'Ace') {
-            score += 11; // ace treated as 11
+        } else if (card.rank === 'A') {
+            score += 11; 
             acesCount++;
         } else {
             score += parseInt(card.rank);
@@ -105,7 +115,7 @@ function calculateScore(hand) {
 
    
     while (score > 21 && acesCount > 0) {
-        score -= 10; // Ace as 1 instead of 11
+        score -= 10; 
         acesCount--;
     }
 
@@ -169,4 +179,23 @@ function updateUI() {
     dealerScoreDiv.textContent = `Score: ${dealerScore}`;
 }
 
+//Adding Images
+function updateUI() {
+    playerCardsDiv.innerHTML = playerHand.map(card => {
+        const cardImg = `<img src="Assets/${card.rank}-${card.suit}.png" alt="${card.rank} of ${card.suit}" class="card-image">`;
+        return cardImg;
+    }).join('');
 
+    dealerCardsDiv.innerHTML = dealerHand.map(card => {
+        const cardImg = `<img src="Assets/${card.rank}-${card.suit}.png" alt="${card.rank} of ${card.suit}" class="card-image">`;
+        return cardImg;
+    }).join('');
+
+    if (gameActive && !dealerRevealed) {
+        dealerCardsDiv.innerHTML += `<img src="Assets/BACK.png" alt="Hidden Card" class="card-image">`;
+    }
+
+    playerScoreDiv.textContent = `Score: ${playerScore}`;
+    // dealerScoreDiv.textContent = `Score: ${dealerScore}`;
+    dealerScoreDiv.textContent = dealerRevealed ? `Score: ${dealerScore}` : `Score: ?`;
+}
