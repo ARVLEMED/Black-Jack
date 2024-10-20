@@ -15,7 +15,6 @@ const resultDiv = document.getElementById('result');
 document.getElementById('start').addEventListener('click', startGame);
 document.getElementById('hit').addEventListener('click', playerHit);
 document.getElementById('stand').addEventListener('click', stand);
-document.getElementById('reveal-dealer-cards').addEventListener('click', revealDealerCards);
 
 function startGame() {
     deck = createDeck();
@@ -49,39 +48,34 @@ function playerHit(){
 
 }
 
-function revealDealerCards() {
-    dealerRevealed = true;
-    dealerHand.push(dealerHiddenCard);
-    dealerScore = calculateScore(dealerHand);
-    updateUI();
-    
-}
 
 function dealerTurn() {
     if (gameActive) {
-        while (dealerScore < 17) {
-            dealerHand.push(drawCard());
-            dealerScore = calculateScore(dealerHand);
-        }
+
+        dealerHand.push(dealerHiddenCard); 
+        dealerRevealed = true;
+        dealerScore = calculateScore(dealerHand);
         updateUI();
 
+        while (dealerScore < 17) {
+            dealerHand.push(drawCard()); 
+            dealerScore = calculateScore(dealerHand); 
+        }
+        updateUI(); 
+        
         if (dealerScore > 21) {
             resultDiv.textContent = 'Dealer busted! You win!';
-            
-        }else if (dealerScore > playerScore) {
+        } else if (dealerScore > playerScore) {
             resultDiv.textContent = 'Dealer wins!';
-            
-        }else if (dealerScore < playerScore) {
+        } else if (dealerScore < playerScore) {
             resultDiv.textContent = 'You win!';
-            
         } else {
             resultDiv.textContent = 'It\'s a tie!';
-            
         }
-        gameActive = false;
+        
+        gameActive = false; 
     }
 }
-
 
 function createDeck() {
     const deck = [];
